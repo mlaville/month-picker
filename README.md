@@ -9,3 +9,8 @@ How to use it ?
     var eltInput = document.getElementById( 'mois' );
 
     monthPickerFactory.createMonthPicker( eltInput );
+    
+Example
+-------
+http://dev.polinux.fr/month-picker/
+
