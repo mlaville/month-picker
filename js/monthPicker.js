@@ -34,9 +34,9 @@ var monthPickerFactory = (function ( document ) {
 				selectAnnee = function( e ) {
 					tabVal[1] = slct_year.value;
 					inputElt.value = '' + tabVal[0]  + '/' + tabVal[1];
-				},			
+				},
 				fillSelect = function( an ) {
-					an = an || 2010;
+					an = an || (new Date()).getFullYear();
 					for(var i = an - 3 ; i < an + 10 ; i++) {
 						slct_year.appendChild( document.createElement('option') ).textContent = i;
 						if( an == i ) {
@@ -46,22 +46,21 @@ var monthPickerFactory = (function ( document ) {
 					slct_year.addEventListener( 'change', selectAnnee );
 					
 				},
-				fillMois = function( tabMois ) {
+				fillMois = function( mois, tabMois ) {
 					tabMois = tabMois || ['Jan', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
-					for(var i = 0 ; i < tabMois.length ; i++) {
-/*						var btn_mois = document.createElement('button')
-						btn_mois.value = i + 1;
-						btn_mois.textContent = tabMois[i];
-						btn_mois.addEventListener( 'click', clickBtnMois );
-						
-						span_mp.appendChild( btn_mois );*/
-						var lbl_mois = document.createElement('label'),
-							rd_mois = lbl_mois.appendChild( document.createElement('input') );
+					mois = mois || (new Date()).getMonth() + 1;
+					
+					for(var i = 0, lbl_mois, rd_mois ; i < tabMois.length ; i++) {
+						lbl_mois  = document.createElement('label'),
+						rd_mois = lbl_mois.appendChild( document.createElement('input') );
 							
 						rd_mois.value = i + 1;
 						rd_mois.setAttribute( 'type', 'radio');
 						rd_mois.setAttribute( 'name', 'mois');
 						rd_mois.addEventListener( 'change', clickBtnMois );
+						if( mois == i + 1 ) {
+							rd_mois.checked = true;
+						}
 						
 						lbl_mois.appendChild( document.createElement('span') ).textContent = tabMois[i];
 						
@@ -75,8 +74,7 @@ var monthPickerFactory = (function ( document ) {
 			inputElt.classList.add( 'month-picker' );
 			fillSelect( ( tabVal.length > 1 ) ? parseInt( tabVal[1] ) : null );
 			span_mp.appendChild( document.createElement('br') );
-			fillMois(  );
-			
+			fillMois( ( tabVal.length ) ? parseInt( tabVal[0] ) : null );
 			
 			inputElt.parentNode.insertBefore(b_mp, inputElt);
 			b_mp.insertBefore(inputElt, span_mp);
