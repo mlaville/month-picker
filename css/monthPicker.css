@@ -16,8 +16,12 @@ input.month-picker + span {
 }
 
 input.month-picker + span button {
-    text-align:center;
-width: 3em; height: 2em;
+	text-align:center;
+	width: 3em; 
+	height: 2em;
+}
+input.month-picker + span select {
+	margin:.5em;
 }
 
 input.month-picker.focus + span, 
@@ -28,10 +32,11 @@ input.month-picker + span:hover{ /*the span will display just on :hover state*/
     width:10.5em;
     top:2em;
     left:-.8em;
-    border:1px solid #0cf;
     background-color:#ddd;
     text-align: center;
 	padding:6px;
+	border-radius: 5px;
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.4), 0 4px 20px rgba(0, 0, 0, 0.33);
 }
 
 b.month-picker label {
