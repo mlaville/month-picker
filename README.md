@@ -12,5 +12,4 @@ How to use it ?
     
 Example
 -------
-http://dev.polinux.fr/month-picker/
-
+http://codepen.io/mlaville/pen/AHxmF
