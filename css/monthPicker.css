@@ -65,7 +65,7 @@ input[type=radio]+span {
     outline: 0 none;
     text-decoration: none;
     text-shadow: 0 1px #FFFFFF;
-    
+    text-transform: capitalize;
 	width:2em;
 	
 /**/
@@ -87,5 +87,5 @@ input[type=radio]:checked+span {
     margin:  -2px 6px 6px 6px;
     padding: 0 12px;
     vertical-align: baseline;
-    color:#170;
+    color:#06A35F;
 }
