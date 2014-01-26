@@ -63,8 +63,19 @@ var monthPickerFactory = (function ( document ) {
 				 * reponse à un click sur un bouton mois
 				 * @event e : 
 				 */
+				
 				clickBtnMois = function( e ) {
-					tabVal = [ e.target.value, slct_year.value ];
+					var val = e.target.value,
+						label = e.target.parentNode,
+						labelNodeList = label.parentNode.getElementsByTagName('label');
+					
+					if(val == 'on') {
+
+						for (var i = 0; i < labelNodeList.length; ++i) {
+							if( label == labelNodeList[i] ) val = i + 1;
+						}
+					}
+					tabVal = [ val, slct_year.value ];
 					inputElt.value = '' + tabVal[0]  + '/' + tabVal[1];
 					 
 					return;
@@ -85,8 +96,7 @@ var monthPickerFactory = (function ( document ) {
 					
 				},
 				fillMois = function( mois, tabMois ) {
-					tabMois = tabMois || Date.monthNames().map( function(str) { return ( str.length > 4 ) ? str.substr(0 , 3) + '.' : str; 
-					} );
+					tabMois = tabMois || Date.monthNames().map( function(str) { return ( str.length > 4 ) ? str.substr(0 , 3) + '.' : str; } );
 					mois = mois || (new Date()).getMonth() + 1;
 					
 					for(var i = 0, lbl_mois, rd_mois ; i < tabMois.length ; i++) {
