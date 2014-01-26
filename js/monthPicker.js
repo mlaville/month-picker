@@ -69,7 +69,7 @@ var monthPickerFactory = (function ( document ) {
 						label = e.target.parentNode,
 						labelNodeList = label.parentNode.getElementsByTagName('label');
 					
-					if(val == 'on') {
+					if(val == 'on') { //Opera
 
 						for (var i = 0; i < labelNodeList.length; ++i) {
 							if( label == labelNodeList[i] ) val = i + 1;
