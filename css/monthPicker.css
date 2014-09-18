@@ -1,13 +1,14 @@
 
 b.month-picker {
     position:relative; /*this is the key*/
-    z-index:24; background-color:#ccc;
+    z-index:24;
+	background-color:#ccc;
     color:#000;
     text-decoration:none
 }
 
 input.month-picker  {
-    width:6em;
+    width:6em !important;
     text-align:center;
 }
 
@@ -29,7 +30,7 @@ input.month-picker:focus + span,
 input.month-picker + span:hover{ /*the span will display just on :hover state*/
     display:block;
     position:absolute;
-    width:10.5em;
+    width:12em;
     top:2em;
     left:-.8em;
     background-color:#ddd;
@@ -60,12 +61,12 @@ input[type=radio]+span {
     display: inline-block;
     font-size: 11px;
     font-weight: bold;
-    height: 28px;
-    line-height: 28px;
+    line-height: 1.em;
     outline: 0 none;
     text-decoration: none;
     text-shadow: 0 1px #FFFFFF;
     text-transform: capitalize;
+    height: 1.em;
 	width:2em;
 	
 /**/
@@ -73,7 +74,7 @@ input[type=radio]+span {
     border-width: 0;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset, 0 1px 1px rgba(0, 0, 0, 0.4) inset, 0 1px #FFFFFF;
 	margin: 2px 6px;
-    padding: 1px 13px 0;
+    padding: 1px 9px 0;
     vertical-align: -5px;
 }
 
@@ -84,8 +85,21 @@ input[type=radio]:checked+span {
     border-radius: 3px 3px 2px 2px;
     border-width: 1px 1px 0;
     box-shadow: 0 1px #FDFDFD inset, 0 0 0 1px #EAEAEA inset, 0 1px #A8A8A8, 0 3px #BBBBBB, 0 4px #A8A8A8, 0 5px 2px rgba(0, 0, 0, 0.25);
-    margin:  -2px 6px 6px 6px;
-    padding: 0 12px;
+    margin:  -2px 6px 4px 6px;
+    padding: 0 8px 1px;
     vertical-align: baseline;
     color:#06A35F;
+}
+
+b.month-picker input.month-picker {
+width:6em;
+}
+
+b.month-picker ul {
+    padding: 0;
+}
+b.month-picker li {
+list-style-type:none;
+display:inline-block;
+margin: 2px;
 }
