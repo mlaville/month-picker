@@ -25,23 +25,6 @@
 /*
  * L'Objet Date sait revenyer la liste des noms de mois
  */
-Date.monthNames = Date.monthNames || function( ) {
-	var arrMonth = [],
-		dateRef = new Date(),
-		year = dateRef.getFullYear(),
-        // Firefox don't support parametres, so we construct option to conform to Firefox format
-        options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
-
-	dateRef.setMonth(0);
-	while (year == dateRef.getFullYear()) {
-		/* push le mois en lettre et passe au mois suivant */
-		arrMonth.push( (dateRef.toLocaleString("fr-FR", options).split(' '))[2] );
-		dateRef.setMonth( dateRef.getMonth() + 1);
-	}
-	
-	return arrMonth;
-}
-
 /**
  * Pour Instancier plusieurs month-picker par page,
  * on a besoin d'une fabrique ...
@@ -96,6 +79,8 @@ var monthPickerFactory = (function ( document ) {
 					
 				},
 				fillMois = function( mois, tabMois ) {
+					var ulMois = document.createElement('ul');
+					
 					tabMois = tabMois || Date.monthNames().map( function(str) { return ( str.length > 4 ) ? str.substr(0 , 3) + '.' : str; } );
 					mois = mois || (new Date()).getMonth() + 1;
 					
@@ -107,13 +92,18 @@ var monthPickerFactory = (function ( document ) {
 						rd_mois.setAttribute( 'type', 'radio');
 						rd_mois.setAttribute( 'name', 'mois');
 						rd_mois.addEventListener( 'change', clickBtnMois );
-						rd_mois.checked = ( mois == rd_mois.value );
-						
+						rd_mois.checked = ( mois == i + 1 );
+						if( rd_mois.value == '' && mois == i + 1 ) {
+							rd_mois.value = 'on';
+						}
 						lbl_mois.appendChild( document.createElement('span') ).textContent = tabMois[i];
 						
-						span_mp.appendChild( lbl_mois );
+//						span_mp.appendChild( lbl_mois );
+						ulMois.appendChild( document.createElement('li') ).appendChild( lbl_mois );
+//						ulMois.appendChild( lbl_mois );
 					}
-					return;
+					
+					return span_mp.appendChild( ulMois );
 				};
 				
 			b_mp.classList.add( 'month-picker' );
