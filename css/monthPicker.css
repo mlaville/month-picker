@@ -40,10 +40,11 @@ input.month-picker + span:hover{ /*the span will display just on :hover state*/
     box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.4), 0 4px 20px rgba(0, 0, 0, 0.33);
 }
 
-b.month-picker label {
+b.month-picker ul li label {
     font-family: Arial,Helvetica,sans-serif;
     font-size: .9em;
 	float:left;
+	margin: 2px !important;  
 }
 input[type=radio] {
     opacity:0;
