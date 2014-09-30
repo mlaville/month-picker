@@ -4,8 +4,8 @@
  * @auteur     marc laville
  * @Copyleft 2014
  * @date       26/01/2014
- * @version    0.5
- * @revision   $0$
+ * @version    0.5.1
+ * @revision   $1$
  *
  * un month-picker pur Javascript
  * 
@@ -48,7 +48,7 @@ var monthPickerFactory = (function ( document ) {
 				clickBtnMois = function( e ) {
 					var val = e.target.value,
 						label = e.target.parentNode,
-						labelNodeList = label.parentNode.getElementsByTagName('label');
+						labelNodeList = label.parentNode.parentNode.getElementsByTagName('label');
 					
 					if(val == 'on') { // compatibilité Opera
 
@@ -98,9 +98,7 @@ var monthPickerFactory = (function ( document ) {
 						}
 						lbl_mois.appendChild( document.createElement('span') ).textContent = tabMois[i];
 						
-//						span_mp.appendChild( lbl_mois );
 						ulMois.appendChild( document.createElement('li') ).appendChild( lbl_mois );
-//						ulMois.appendChild( lbl_mois );
 					}
 					
 					return span_mp.appendChild( ulMois );
