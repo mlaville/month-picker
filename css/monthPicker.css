@@ -30,12 +30,12 @@ input.month-picker:focus + span,
 input.month-picker + span:hover{ /*the span will display just on :hover state*/
     display:block;
     position:absolute;
-    width:12em;
+    width:14em;
     top:2em;
     left:-.8em;
     background-color:#ddd;
     text-align: center;
-	padding:6px;
+	padding:4px;
 	border-radius: 5px;
     box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.4), 0 4px 20px rgba(0, 0, 0, 0.33);
 }
@@ -68,7 +68,7 @@ input[type=radio]+span {
     text-shadow: 0 1px #FFFFFF;
     text-transform: capitalize;
     height: 1.em;
-	width:2em;
+	width:2.4em;
 	
 /**/
     border-radius: 3px;
@@ -100,7 +100,7 @@ b.month-picker ul {
     padding: 0;
 }
 b.month-picker li {
-list-style-type:none;
-display:inline-block;
-margin: 2px;
+	list-style-type:none;
+	display:inline-block;
+	margin: 0;
 }
