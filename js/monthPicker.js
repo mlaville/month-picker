@@ -5,24 +5,43 @@
  * @Copyleft 2014
  * @date       26/01/2014
  * @version    0.5.1
- * @revision   $1$
+ * @revision   $0$
  *
  * un month-picker pur Javascript
  * 
- * @date revision 21/09/2014 restitue la valeur du champ texr dans le panneau de saisie
+ *
+ * A Faire
+ * -position du tip ( west, east, north, south )
+ * - localisation
  *
  * Licensed under the GPL license:
  *   http://www.opensource.org/licenses/mit-license.php
  */
-/**
- * A Faire
- * -position du tip ( west, east, north, south )
- * - localisation
-*/
 
 /*
  * L'Objet Date sait revenyer la liste des noms de mois
  */
+Date.monthNames = Date.monthNames || function( lang ) {
+	var arrMonth = [],
+		dateRef = new Date(),
+		year = dateRef.getFullYear(),
+        // Firefox don't support parametres, so we construct option to conform to Firefox format
+ //       options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
+        options = { month: "long" };
+    
+    lang = lang || 'fr-FR';
+
+	dateRef.setMonth(0);
+	dateRef.setDate(11); // Eviter la fin de mois !!!
+	while (year == dateRef.getFullYear()) {
+		/* push le mois en lettre et passe au mois suivant */
+		arrMonth.push( dateRef.toLocaleString(lang, options) );
+		dateRef.setMonth( dateRef.getMonth() + 1);
+	}
+	
+	return arrMonth;
+}
+
 /**
  * Pour Instancier plusieurs month-picker par page,
  * on a besoin d'une fabrique ...
@@ -35,7 +54,7 @@ var monthPickerFactory = (function ( document ) {
 		 */
 		monthPicker =  function ( inputElt, options ) {
 			var valeur = inputElt.value,
-				tabVal = valeur.toIntArray(), // Voir un regex pour généraliser la construction 
+				tabVal = valeur.split('/'), // Voir un regex pour généraliser la construction 
 				b_mp = document.createElement('b'),
 				span_mp = b_mp.appendChild( document.createElement('span') ),
 				slct_year = span_mp.appendChild( document.createElement('select') ),
@@ -44,11 +63,10 @@ var monthPickerFactory = (function ( document ) {
 				 * reponse à un click sur un bouton mois
 				 * @event e : 
 				 */
-				
 				clickBtnMois = function( e ) {
 					var val = e.target.value,
 						label = e.target.parentNode,
-						labelNodeList = label.parentNode.parentNode.getElementsByTagName('label');
+						labelNodeList = label.parentNode.getElementsByTagName('label');
 					
 					if(val == 'on') { // compatibilité Opera
 
@@ -57,7 +75,7 @@ var monthPickerFactory = (function ( document ) {
 						}
 					}
 					tabVal = [ val, slct_year.value ];
-					inputElt.value = '' + tabVal[0]  + '/' + tabVal[1];
+					inputElt.value = tabVal.join('/');
 					 
 					return;
 				},			
@@ -69,8 +87,6 @@ var monthPickerFactory = (function ( document ) {
 					an = an || (new Date()).getFullYear();
 					for(var i = an - 3 ; i < an + 10 ; i++) {
 						slct_year.appendChild( document.createElement('option') ).textContent = i;
-						
-						slct_year.lastChild.setAttribute( 'value', i );
 						if( an == i ) {
 							slct_year.lastChild.setAttribute( 'selected', 'selected' );
 						}
@@ -78,46 +94,44 @@ var monthPickerFactory = (function ( document ) {
 					slct_year.addEventListener( 'change', selectAnnee );
 					
 				},
-				fillMois = function( mois, nom, tabMois ) {
-					var ulMois = document.createElement('ul');
+				fillMois = function( mois, tabMois ) {
+					var ajoutLabelMois = function( paramMois ) {
+						return function( item, index ) {
+							var lbl_mois  = document.createElement('label'),
+								rd_mois = lbl_mois.appendChild( document.createElement('input') );
+							
+							rd_mois.value = index + 1;
+							rd_mois.setAttribute( 'type', 'radio');
+							rd_mois.setAttribute( 'name', 'mois');
+							rd_mois.addEventListener( 'change', clickBtnMois );
+							rd_mois.checked = ( paramMois == (index + 1) );
+							if( rd_mois.value == '' && paramMois == index + 1 ) {
+								rd_mois.value = 'on';
+							}
+							
+							lbl_mois.appendChild( document.createElement('span') ).textContent = item;
+							
+							span_mp.appendChild( lbl_mois );
+						};
+					}
 					
-					tabMois = tabMois || Date.monthNames().map( function(str) { return ( str.length > 4 ) ? str.substr(0 , 3) + '.' : str; } );
+					
+					tabMois = tabMois || Date.monthNames().map( function(str) { return ( str.length > 4 ) ? str.substr(0 , 3) + '.' : str; 
+					} );
 					mois = mois || (new Date()).getMonth() + 1;
 					
-					for(var i = 0, lbl_mois, rd_mois ; i < tabMois.length ; i++) {
-						lbl_mois  = document.createElement('label'),
-						rd_mois = lbl_mois.appendChild( document.createElement('input') );
-							
-						rd_mois.value = i + 1;
-						rd_mois.setAttribute( 'type', 'radio');
-						rd_mois.setAttribute( 'name', 'mois-' + nom );
-						rd_mois.addEventListener( 'change', clickBtnMois );
-						rd_mois.checked = ( mois == i + 1 );
-						if( rd_mois.value == '' && mois == i + 1 ) {
-							rd_mois.value = 'on';
-						}
-						lbl_mois.appendChild( document.createElement('span') ).textContent = tabMois[i];
-						
-						ulMois.appendChild( document.createElement('li') ).appendChild( lbl_mois );
-					}
+					tabMois.forEach(ajoutLabelMois(mois));
+
+					return;
+				}, 				
+				reflectSaisie = function( e ) {
+					tabVal = e.target.value.toIntArray();
 					
-					return span_mp.appendChild( ulMois );
-				},
-				/*
-				 * Restitue la valeur de l'input sur la panneau
-				 */
-				setValue = function( str ) {
-					var tabVal = str.toIntArray();
-					
-					radios = span_mp.querySelectorAll('ul li input');
-					for( var i = 0 ; i < radios.length ; i++ ) {
-						var rd = radios[i];
-						
-						if( rd.value == tabVal[0] ) {
-							rd.checked = true;
-						}
+					if( tabVal.length ) {
+						span_mp.querySelectorAll('label input').item(tabVal[0] - 1).checked = true;
+						if( tabVal.length > 1 )
+							slct_year.value = tabVal[1];
 					}
-					slct_year.value = tabVal[1];
 				};
 				
 			b_mp.classList.add( 'month-picker' );
@@ -125,14 +139,12 @@ var monthPickerFactory = (function ( document ) {
 			inputElt.classList.add( 'month-picker' );
 			fillSelect( ( tabVal.length > 1 ) ? parseInt( tabVal[1] ) : null );
 			span_mp.appendChild( document.createElement('br') );
-			fillMois( ( tabVal.length ) ? parseInt( tabVal[0] ) : null , inputElt.getAttribute('name') );
+			fillMois( ( tabVal.length ) ? parseInt( tabVal[0] ) : null );
 			
 			inputElt.parentNode.insertBefore(b_mp, inputElt);
 			b_mp.insertBefore(inputElt, span_mp);
-			setValue( inputElt.value )
-			inputElt.addEventListener( 'change', function( e ) {
-				return setValue( e.target.value ) ;
-			});
+			
+			inputElt.addEventListener( 'input', reflectSaisie );
 			
 			return b_mp;
 		};
@@ -141,3 +153,6 @@ var monthPickerFactory = (function ( document ) {
 		createMonthPicker : monthPicker
 	}
 })(window.document);
+
+// Start
+monthPickerFactory.createMonthPicker( document.getElementById('mois') );

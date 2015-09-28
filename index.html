@@ -10,10 +10,14 @@
 </head>
 <body>
 	<p>month-picker : <input id='mois' type="text" value="01/2014" name="mois" /></p>
-<script type="text/javascript" src="http://localhost/git/js-util/js-util.js"></script>
-<script type="text/javascript" src="./js/monthPicker.js"></script>
-<script type="text/javascript">
-	monthPickerFactory.createMonthPicker( document.getElementById('mois') );
-</script>
+	
+	<script type="text/javascript" src="http://localhost/git/js-util/js-util.js"></script>
+	<script type="text/javascript" src="./js/monthPicker.js"></script>
+	<script type="text/javascript">
+	function test( arr ) {
+	  document.getElementById('result').textContent = '<a href="#">' + arr.join('</a>-<a href="#">') + '</a>';
+	}
+	</script>
+	<script type="text/javascript" src="http://ws.polinux.fr/localisation/languageList.php?callback=test"></script>
 </body>
 </html>
