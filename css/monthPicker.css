@@ -1,92 +1,88 @@
-
 b.month-picker {
-    position:relative; /*this is the key*/
-    z-index:24; background-color:#ccc;
-    color:#000;
-    text-decoration:none
+  position: relative; /*this is the key*/
+  z-index: 24;
+  background-color: #ccc;
+  color: #000;
+  text-decoration: none;
 }
 
-b.month-picker input.month-picker  {
-    width:6em !important;
-    text-align:center;
+b.month-picker input.month-picker {
+  text-align: center;
 }
 
 input.month-picker + span {
-	display: none;
-	width: 12em;
+  display: none;
+  width: 12em;
 }
 
 input.month-picker + span button {
-	text-align:center;
-	width: 3em; 
-	height: 2em;
+  text-align: center;
+  width: 3em;
+  height: 2em;
 }
 input.month-picker + span select {
-	margin:.5em;
+  margin: 0.5em;
+  background: none;
+  width: 9rem;
+  text-align: center;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-input.month-picker.focus + span, 
-input.month-picker:focus + span, 
-input.month-picker + span:hover{ /*the span will display just on :hover state*/
-    display:block;
-    position:absolute;
-    width:180px;
-    top:2em;
-    left:-.8em;
-    background-color:#ddd;
-    text-align: center;
-	padding:6px;
-	border-radius: 5px;
-    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.4), 0 4px 20px rgba(0, 0, 0, 0.33);
+input.month-picker.focus + span,
+input.month-picker:focus + span,
+input.month-picker + span:hover {
+  display: block;
+  position: absolute;
+  width: 19rem;
+  top: 3.9rem;
+  left: 1.3rem;
+  background-color: #ddd;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 0.7rem;
 }
 
 .month-picker label {
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: .9em;
-	float:left;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9em;
 }
-.month-picker input[type=radio] {
-    opacity:0;
-	margin:0 -18px 0 0;
-}
-
-.month-picker label input[type=radio]+span {
- font: 13px/20px 'Lucida Grande',Tahoma,Verdana,sans-serif;
-    -moz-box-sizing: content-box;
-    background: linear-gradient(to bottom, #F1F1F1, #DFDFDF 70%, #DADADA) repeat scroll 0 0 #DFDFDF;
-    border-color: #CECECE #BABABA #A8A8A8;
-
-    border-style: solid;
-    color: #555;
-    display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    height: 28px;
-    line-height: 28px;
-    outline: 0 none;
-    text-decoration: none;
-    text-shadow: 0 1px #FFFFFF;
-    text-transform: capitalize;
-	width:2em;
-	
-/**/
-    border-radius: 3px;
-    border-width: 0;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset, 0 1px 1px rgba(0, 0, 0, 0.4) inset, 0 1px #FFFFFF;
-	margin: 2px 6px;
-    padding: 1px 13px 0;
-    vertical-align: -5px;
+.month-picker input[type="radio"] {
+  opacity: 0;
+  margin: 0 -18px 0 0;
 }
 
-.month-picker input[type=radio]:checked+span {
-    background: none repeat scroll 0 0 #DFDFDF;
-    border-top-color: #C9C9C9;
+.month-picker label input[type="radio"] + span {
+  font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
+  -moz-box-sizing: content-box;
+  background: none;
+  color: #555;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  height: 28px;
+  line-height: 28px;
+  outline: 0 none;
+  text-decoration: none;
+  text-shadow: 0 1px #ffffff;
+  text-transform: capitalize;
+  width: 3em;
+  border-radius: 3px;
+  margin: 2px 6px;
+  padding: 1px 13px 0;
+  vertical-align: -5px;
+  border: 0.1rem;
+}
 
-    border-radius: 3px 3px 2px 2px;
-    border-width: 1px 1px 0;
-    box-shadow: 0 1px #FDFDFD inset, 0 0 0 1px #EAEAEA inset, 0 1px #A8A8A8, 0 3px #BBBBBB, 0 4px #A8A8A8, 0 5px 2px rgba(0, 0, 0, 0.25);
-    margin:  -2px 6px 6px 6px;
-    padding: 0 12px;
-    vertical-align: baseline;
-    color:#06A35F;
+.month-picker input[type="radio"]:checked + span {
+  background: white;
+  border-color: #c9c9c9;
+  border-radius: 3rem;
+  border-width: 0.1rem;
+  margin: -2px 6px 6px 6px;
+  padding: 0 12px;
+  vertical-align: baseline;
+  color: #02c186;
+  transition: 0.3s;
 }
